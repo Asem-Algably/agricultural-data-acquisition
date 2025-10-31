@@ -8,19 +8,16 @@
 #include "../userLib/types.h"
 dht11 DHT11;
 
+void dht11_init(void){
+    // No special init required for this library
+}
 
-extern "C" {
-    void dht11_init(void){
-        // No special init required for this library
-    }
+dht11_object returnDHT11Readings(void){
+    int chk = DHT11.read(DHT11PIN);
 
-    dht11_object returnDHT11Readings(void){
-        int chk = DHT11.read(DHT11PIN);
+    dht11_object readings;
+    readings.airhumid = (float)DHT11.humidity;
+    readings.airtemp = (float)DHT11.temperature;
 
-        dht11_object readings;
-        readings.airhumid = (float)DHT11.humidity;
-        readings.airtemp = (float)DHT11.temperature;
-
-        return readings;
-    }
+    return readings;
 }

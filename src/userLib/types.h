@@ -8,17 +8,7 @@
 #include "../../reefPlusFirmware_config.h"
 
 #include <Arduino.h>
-
-typedef struct {
-    int id;
-    float temperature;
-    float soilHumid;
-    float airhumid;
-} state;
-
-typedef struct {
-    int commandId;
-    state stateData;
-} command;
+#include <esp_now.h>
+#include <WiFi.h>
 
 #endif // TYPES_H

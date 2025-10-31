@@ -1,5 +1,4 @@
 // main file includes
-#include <Arduino.h>
 #include "reefPlusFirmware_config.h" 
 #include "reefPlusFirmware_priv.h"
 
@@ -11,18 +10,16 @@
 #include "./src/soilHumid/soilHumid_init.h"
 #include "./src/networkServices/networkServices_init.h"
 
-#include "./src/app/app_init.h"
-
 // Create DHT11 instance
 
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 
 void loop() {
   // Read the Analog Input
-  int value = returnSoilHumid();
-  Serial.print("value is ");
-  Serial.println(value);
+  Serial.println("Reading Soil Humidity...");
+  delay(2000);
 }

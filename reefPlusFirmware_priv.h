@@ -6,5 +6,4 @@
 #define RoleRouter 2
 #define RoleEndDevice 3
 
-
 #endif // REEF_PLUS_FIRMWARE_PRIV_H
