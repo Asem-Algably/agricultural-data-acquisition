@@ -1,11 +1,9 @@
 #ifndef DHT11_CONFIG_H
 #define DHT11_CONFIG_H
-
+#include "reefPlusFirmware_config.h"
 // Configuration settings for DHT11 module
 
 // Define the GPIO pin used for DHT11 data
-#define DHT11PIN 4
-#define DHT11ID_moisture (0x3a6516f1)
-#define DHT11ID_temp (0x4b8272c3)
+#define DHT11PIN board_systemBoards[boardID].dht11DataPin
 
 #endif // DHT11_CONFIG_H
