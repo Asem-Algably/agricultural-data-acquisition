@@ -11,6 +11,7 @@ void soilHumid_init(void){
 }
 
 float returnSoilHumid(void){
+    if(disable_sensors == 1U){return 3.14f;}
 
     int value = analogRead(SOIL_HUMID_PIN);
 

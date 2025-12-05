@@ -13,6 +13,9 @@ void dht11_init(void){
 }
 
 dht11_object returnDHT11Readings(void){
+
+    if(disable_sensors == 1U){return (dht11_object){3.14f, 3.14f};}
+
     int chk = DHT11.read(DHT11PIN);
 
     dht11_object readings;
