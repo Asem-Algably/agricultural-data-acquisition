@@ -5,6 +5,7 @@
 
 // Define the GPIO pin used for DHT11 data
 #define DHT11PIN 4
-#define DHT11ID (0x3a6516f1)
+#define DHT11ID_moisture (0x3a6516f1)
+#define DHT11ID_temp (0x4b8272c3)
 
 #endif // DHT11_CONFIG_H

@@ -1,14 +1,20 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef INCLUDES_H
+#define INCLUDES_H
 
 // Module init headers
-#include "../dht11/dht11_init.h"
-#include "../soilHumid/soilHumid_init.h"
-#include "../networkServices/networkServices_init.h"
-#include "../../reefPlusFirmware_config.h"
+#include "../lib/dht11/dht11_init.h"
+#include "../lib/dht11/dht11_config.h"
+#include "../lib/soilHumid/soilHumid_init.h"
+#include "../lib/networkServices/networkServices_init.h"
+#include "../lib/postServices/postServices_init.h"
+#include "../lib/app/app_init.h"
+#include "../lib/app/app_config.h"
+#include "./reefPlusFirmware_config.h"
+#include "./types.h"
 
+#include <string>
 #include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
 
-#endif // TYPES_H
+#endif // INCLUDES_H

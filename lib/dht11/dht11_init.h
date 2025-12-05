@@ -2,8 +2,8 @@
 #define DHT11_INIT_H
 
 typedef struct {
-    float airhumid;
-    float airtemp;
+    float airHumid;
+    float airTemp;
 } dht11_object;
 
 

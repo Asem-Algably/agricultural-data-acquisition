@@ -1,22 +1,11 @@
 #ifndef NETWORK_SERVICES_INIT_H
 #define NETWORK_SERVICES_INIT_H
-
-#include "userLib/types.h"
-
-typedef struct {
-    char packetType;
-    dht11_object dht11;
-    float soilHumid;
-    int dht11ID;
-    int soilHumidID;
-    int targetBoardID;
-} networkServices_object;
+#include "types.h"
 
 // Initialization function for network services module
 int networkServices_init(void);
-int networkServices_upstreamPacket(networkServices_object);
-int networkServices_downstreamPacket(networkServices_object);
-int receive_NetworkServices_procedure(void);
-
+int networkServices_upstreamPacket(packet_t packet);
+int networkServices_downstreamPacket(packet_t packet);
+void receive_NetworkServices_procedure();
 
 #endif // NETWORK_SERVICES_INIT_H

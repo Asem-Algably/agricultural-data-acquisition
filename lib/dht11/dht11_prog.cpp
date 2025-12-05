@@ -5,7 +5,6 @@
 #include "dht11_init.h"
 #include "dht11_priv.h"
 
-#include "../userLib/types.h"
 dht11 DHT11;
 
 void dht11_init(void){

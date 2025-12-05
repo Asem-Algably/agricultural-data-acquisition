@@ -1,8 +1,7 @@
 #include "soilHumid_config.h"
 #include "soilHumid_init.h"
 #include "soilHumid_priv.h"
-
-#include "../userLib/types.h"
+#include <Arduino.h>
 
 void soilHumid_init(void){
     // Initialization code for soil humidity module
