@@ -1,10 +1,10 @@
 #include "soilHumid_config.h"
 #include "soilHumid_init.h"
 #include "soilHumid_priv.h"
-#include "types.h"
+#include "../../include/types.h"
 #include <Arduino.h>
 
-extern board_t board_systemBoards[];
+extern const board_t board_systemBoards[];
 
 void soilHumid_init(void){
     // Initialization code for soil humidity module

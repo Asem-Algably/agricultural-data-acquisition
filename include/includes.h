@@ -15,6 +15,6 @@
 #include <string>
 #include <Arduino.h>
 #include <esp_now.h>
-#include <WiFi.h>
+#include "C:/Users/Asem/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h"
 
 #endif // INCLUDES_H

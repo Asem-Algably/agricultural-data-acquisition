@@ -1,3 +1,7 @@
+#pragma once
+#include "../../include/types.h"
+extern const board_t board_systemBoards[];
+
 #ifndef APP_CONFIG_H
 #define APP_CONFIG_H
 

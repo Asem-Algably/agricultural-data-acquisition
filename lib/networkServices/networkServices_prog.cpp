@@ -4,8 +4,10 @@
 #include <Arduino.h>
 #include "../esp_now/esp_now_init.h"
 #include "../esp_now/esp_now_config.h"
-#include "reefPlusFirmware_config.h"
+#include "../../include/reefPlusFirmware_config.h"
 #include "../app/app_init.h"
+#include "../../include/includes.h"
+#include "../../include/types.h"
 
 extern const board_t board_systemBoards[];
 

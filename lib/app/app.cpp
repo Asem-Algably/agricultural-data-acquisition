@@ -1,4 +1,5 @@
-#include "includes.h"
+#include "../../include/includes.h"
+#include "../../include/types.h"
 #include "app_init.h"
 #include "app_config.h"
 #include "app_priv.h"

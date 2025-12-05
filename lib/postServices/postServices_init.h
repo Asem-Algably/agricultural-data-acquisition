@@ -1,3 +1,7 @@
+#include "../../include/types.h"
+#include "../../include/includes.h"
+
+
 #ifndef POSTSERVICES_INIT_H
 #define POSTSERVICES_INIT_H
 

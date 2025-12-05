@@ -2,6 +2,8 @@
 #include "esp_now_config.h"
 #include "esp_now_priv.h"
 #include "../networkServices/networkServices_init.h"
+#include "../../include/types.h"
+#include "../../include/includes.h"
 
 extern const board_t board_systemBoards[];
 
@@ -25,7 +27,7 @@ int esp_now_start(){
             Serial.print(" at board ");
             Serial.println(boardID);
         }
-        return;
+        return 0;
     }else {
         if (serial_output == 1U) {
             Serial.println("ESP-NOW initialized successfully");
@@ -56,7 +58,7 @@ int esp_now_initPeers(esp_now_peer_info_t* upstreamPeer, esp_now_peer_info_t* do
     // Add upstream peer
     if (esp_now_add_peer(&upStreamDevice) != ESP_OK){
         if(serial_output == 1U){Serial.println("Failed to add upstream peer");}
-        return;
+        return 0;
     }else {
         if(serial_output == 1U){Serial.println("Upstream peer added successfully");}
     }
@@ -64,7 +66,7 @@ int esp_now_initPeers(esp_now_peer_info_t* upstreamPeer, esp_now_peer_info_t* do
     // Add downstream peer
     if (esp_now_add_peer(&downStreamDevice) != ESP_OK){
         if(serial_output == 1U){Serial.println("Failed to add downstream peer");}
-        return;
+        return 0;
     }else {
         if(serial_output == 1U){Serial.println("Downstream peer added successfully");}
     }
