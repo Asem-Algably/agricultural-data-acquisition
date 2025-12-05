@@ -1,5 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
+#include <Arduino.h>
 
 // standard types
 typedef      unsigned char            u8   ;
@@ -19,6 +20,7 @@ typedef struct {
     char soilMoistureSensorId[32];    // Soil moisture sensor ID
     u8 dht11DataPin;                  // DHT11 sensor data pin
     u8 soilHumiditySensorPin;         // Soil humidity sensor analog pin
+    uint8_t macAddress[6];
 } board_t;
 
 typedef struct {
