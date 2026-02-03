@@ -1,9 +1,7 @@
 #include "esp_now_init.h"
 #include "esp_now_config.h"
 #include "esp_now_priv.h"
-#include "../networkServices/networkServices_init.h"
-#include "../../include/types.h"
-#include "../../include/includes.h"
+#include "includes.h"
 
 extern const board_t board_systemBoards[];
 
@@ -39,11 +37,11 @@ int esp_now_start(){
     
     
     memcpy(upStreamDevice.peer_addr, upstreamDevice_MAC, 6);
-    upStreamDevice.channel = 0;
+    upStreamDevice.channel = 5;
     upStreamDevice.encrypt = false;
     
     memcpy(downStreamDevice.peer_addr, downstreamDevice_MAC, 6);
-    downStreamDevice.channel = 0;
+    downStreamDevice.channel = 5;
     downStreamDevice.encrypt = false;
     
     esp_now_initPeers(&upStreamDevice, &downStreamDevice);

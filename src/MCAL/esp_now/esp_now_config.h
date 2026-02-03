@@ -1,6 +1,6 @@
 #ifndef ESP_NOW_CONFIG_H
 #define ESP_NOW_CONFIG_H
-#include "../../include/reefPlusFirmware_config.h"
+#include "includes.h"
 #include "esp_now_priv.h"
 
 // define relative MAC addresses for target devices

@@ -5,10 +5,10 @@
 #include "./types.h"
 
 // testing modes
-#define disable_sensors (1U) // set to (1u) to disable sensors for testing purposes 
+#define disable_sensors (0U) // set to (1u) to disable sensors for testing purposes 
 #define serial_output   (1U) // set to (1u) to enable serial output for debugging purposes
 
 // configuration for the board
-#define boardID    3
+#define boardID    1
 
 #endif // REEF_PLUS_FIRMWARE_CONFIG_H

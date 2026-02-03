@@ -5,10 +5,10 @@
 #include "app_priv.h"
 
 void app_init(void){
+    postServices_init();
     soilHumid_init();
     dht11_init();
     networkServices_init();
-    postServices_init();
 }
 
 void app_masterTask(void){

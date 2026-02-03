@@ -1,13 +1,8 @@
 #include "networkServices_config.h"
 #include "networkServices_init.h"
 #include "networkServices_priv.h"
-#include <Arduino.h>
-#include "../esp_now/esp_now_init.h"
-#include "../esp_now/esp_now_config.h"
-#include "../../include/reefPlusFirmware_config.h"
-#include "../app/app_init.h"
-#include "../../include/includes.h"
-#include "../../include/types.h"
+#include "MCAL/esp_now/esp_now_config.h"
+#include "includes.h"
 
 extern const board_t board_systemBoards[];
 
@@ -27,12 +22,16 @@ int networkServices_upstreamPacket(packet_t packet){
             if (result == ESP_OK) {
                 Serial.println("packet upstreaming succeeded");
                 Serial.print(" at board ");
-                Serial.println(boardID);
+                Serial.print(boardID);
+                Serial.print(" to board ");
+                Serial.println(boardID + 1);
             }
             else {
                 Serial.println("Error upstreaming packet");
                 Serial.print(" at board ");
-                Serial.println(boardID);
+                Serial.print(boardID);
+                Serial.print(" to board ");
+                Serial.println(boardID + 1);
             }
         }
     }
@@ -48,12 +47,16 @@ int networkServices_downstreamPacket(packet_t packet){
             if (result == ESP_OK) {
                 Serial.println("packet downstreaming succeeded");
                 Serial.print(" at board ");
-                Serial.println(boardID);
+                Serial.print(boardID);
+                Serial.print(" to board ");
+                Serial.println(boardID + 1);
             }
             else {
                 Serial.println("Error downstreaming packet");
                 Serial.print(" at board ");
-                Serial.println(boardID);
+                Serial.print(boardID);
+                Serial.print(" to board ");
+                Serial.println(boardID + 1);
             }
         }
     }

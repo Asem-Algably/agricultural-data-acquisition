@@ -1,8 +1,7 @@
 #include "soilHumid_config.h"
 #include "soilHumid_init.h"
 #include "soilHumid_priv.h"
-#include "../../include/types.h"
-#include <Arduino.h>
+#include "includes.h"
 
 extern const board_t board_systemBoards[];
 

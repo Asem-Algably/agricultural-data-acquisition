@@ -1,6 +1,6 @@
 #ifndef NETWORK_SERVICES_INIT_H
 #define NETWORK_SERVICES_INIT_H
-#include "../../include/types.h"
+#include "types.h"
 
 // Initialization function for network services module
 int networkServices_init(void);
