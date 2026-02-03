@@ -19,7 +19,7 @@
 #include "HAL/dht11/dht11_init.h"
 #include "HAL/soilHumid/soilHumid_init.h"
 #include "HAL/networkServices/networkServices_init.h"
-#include "HAL/postServices/postServices_init.h"
+#include "app/postServices/postServices_init.h"
 
 // app includes
 #include "app/app_init.h"

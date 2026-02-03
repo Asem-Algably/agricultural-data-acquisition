@@ -6,10 +6,10 @@
 
 extern const board_t board_systemBoards[];
 
-int networkServices_init(void){
+int networkServices_init(int wifiChannel){
     // Initialization code for network services module
     if(communication_mode == espNow_mode){
-        esp_now_start();
+        esp_now_start(wifiChannel);
     }
     return 0;
 }

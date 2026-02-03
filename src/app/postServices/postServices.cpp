@@ -7,15 +7,16 @@
 const char* ssid = ssid_priv;
 const char* password = password_priv;
 
-void postServices_init(){
+int postServices_init(){
 
     WiFi.begin(ssid, password);
     (serial_output == 1U) ? Serial.println("Connecting") : 1;
+    int wifi_channel;
 
     while(WiFi.status() != WL_CONNECTED) {
         delay(500);
         (serial_output == 1U) ? Serial.print(".") : 1;
-        int wifi_channel = WiFi.channel();
+        wifi_channel = WiFi.channel();
         (serial_output == 1U) ? Serial.print(" Current WiFi Channel: ") : 1;
         (serial_output == 1U) ? Serial.println(wifi_channel) : 1;
     }
@@ -28,6 +29,7 @@ void postServices_init(){
         
         Serial.println("Post Services Initialized");
     }
+    return wifi_channel;
 }
 
 bool postServices_postData(sensorsData_t data, u8 boardNum){

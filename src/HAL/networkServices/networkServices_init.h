@@ -3,7 +3,7 @@
 #include "types.h"
 
 // Initialization function for network services module
-int networkServices_init(void);
+int networkServices_init(int wifiChannel);
 int networkServices_upstreamPacket(packet_t packet);
 int networkServices_downstreamPacket(packet_t packet);
 void networkServices_onDataRecv(packet_t packet);

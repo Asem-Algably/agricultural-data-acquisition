@@ -12,7 +12,7 @@ uint8_t upstreamDevice_MAC[6];
 uint8_t downstreamDevice_MAC[6];
 
 
-int esp_now_start(){
+int esp_now_start(int wifiChannel){
     memcpy(upstreamDevice_MAC, upstreamDevice_MAC_h, 6);
     memcpy(downstreamDevice_MAC, downstreamDevice_MAC_h, 6);
     // Set device as a Wi-Fi Station
@@ -37,11 +37,11 @@ int esp_now_start(){
     
     
     memcpy(upStreamDevice.peer_addr, upstreamDevice_MAC, 6);
-    upStreamDevice.channel = 5;
+    upStreamDevice.channel = wifiChannel;
     upStreamDevice.encrypt = false;
     
     memcpy(downStreamDevice.peer_addr, downstreamDevice_MAC, 6);
-    downStreamDevice.channel = 5;
+    downStreamDevice.channel = wifiChannel;
     downStreamDevice.encrypt = false;
     
     esp_now_initPeers(&upStreamDevice, &downStreamDevice);
