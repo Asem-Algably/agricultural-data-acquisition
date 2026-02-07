@@ -4,6 +4,7 @@
 // Configuration settings for DHT11 module
 
 // Define the GPIO pin used for DHT11 data
-#define DHT11PIN board_systemBoards[boardID-1].dht11DataPin
+#define DHTPIN board_systemBoards[boardID-1].dht11DataPin
+#define DHTTYPE    DHT11
 
 #endif // DHT11_CONFIG_H

@@ -44,5 +44,18 @@ bool postServices_postData(sensorsData_t data, u8 boardNum){
         Serial.print(data.soilHumidity);
         Serial.println(" %");
     }
+
+    HTTPClient http;
+    String serverName = "https://webhook.site/4e6188ac-a49f-4fec-a635-b17e4a474a5a";
+    String serverPath = serverName + "?temperature=24.37";
+    
+    // Your Domain name with URL path or IP address with path
+    http.begin(serverPath.c_str());
+    
+    // If you need Node-RED/server authentication, insert user and password below
+    //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
+    
+    // Send HTTP GET request
+    int httpResponseCode = http.GET();
     return true;
 }

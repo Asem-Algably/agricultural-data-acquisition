@@ -5,16 +5,27 @@
 #include "app_priv.h"
 
 void app_init(void){
+    Serial.println("DEBUG: Starting app_init");
+    Serial.println("DEBUG: Before postServices_init");
     int wifiChannel = postServices_init();
+    Serial.println("DEBUG: After postServices_init");
+    Serial.println("DEBUG: Before soilHumid_init");
     soilHumid_init();
+    Serial.println("DEBUG: After soilHumid_init");
+    Serial.println("DEBUG: Before dht11_init");
     dht11_init();
+    Serial.println("DEBUG: After dht11_init");
+    Serial.println("DEBUG: Before networkServices_init");
     networkServices_init(wifiChannel);
+    Serial.println("DEBUG: After networkServices_init");
 }
 
 void app_masterTask(void){
     // Code for the master task
-    sensorsData_t data = app_collectSensorData();
-    postServices_postData(data, boardID);
+    if (boardID == 1){
+        sensorsData_t data = app_collectSensorData();
+        postServices_postData(data, boardID);
+    }
 
     for(int i = 2; i <= boardsChainLength; i++){
         packet_t packet;

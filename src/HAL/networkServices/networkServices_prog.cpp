@@ -9,7 +9,9 @@ extern const board_t board_systemBoards[];
 int networkServices_init(int wifiChannel){
     // Initialization code for network services module
     if(communication_mode == espNow_mode){
+        Serial.println("DEBUG: Before esp_now_start");
         esp_now_start(wifiChannel);
+        Serial.println("DEBUG: After esp_now_start");
     }
     return 0;
 }

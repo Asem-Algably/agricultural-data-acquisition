@@ -13,7 +13,9 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <Arduino_JSON.h>
-#include <dht11.h>
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
 
 // HAL includes
 #include "HAL/dht11/dht11_init.h"

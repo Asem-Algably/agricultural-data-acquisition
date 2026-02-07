@@ -1,7 +1,7 @@
 #include "app_config.h"
 #include "app_priv.h"
 #include "app_init.h"
-#include "../../include/types.h"
+#include "includes.h"
 
 const board_t board_systemBoards[] = {
     {
@@ -9,8 +9,8 @@ const board_t board_systemBoards[] = {
         "DHT11_001",
         "DHT11_001",
         "SOIL_001",
-        7,      // DHT11 data pin
-        34,      // Soil humidity sensor pin (ESP32 ADC pin)
+        18,      // DHT11 data pin
+        30,      // Soil humidity sensor pin (ESP32 ADC pin)
         {0x14, 0x2B, 0x2F, 0xC1, 0xF5, 0x78} // MAC Address
     },
     {
