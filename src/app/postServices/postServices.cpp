@@ -2,10 +2,15 @@
 #include "postServices_config.h"
 #include "postServices_init.h"
 #include "includes.h"
+#include <WiFiClientSecure.h>
 
 // WiFi credentials
 const char* ssid = ssid_priv;
 const char* password = password_priv;
+
+extern const board_t board_systemBoards[];
+
+const char* webhookUUID = "2f83affd-63b2-44d3-b5a2-0d462261fab5"; // e.g. "7902f3c3-d7fe-4192-b32d-ba72657f990e"
 
 int postServices_init(){
 
@@ -43,19 +48,50 @@ bool postServices_postData(sensorsData_t data, u8 boardNum){
         Serial.print(" C, Soil Humidity: ");
         Serial.print(data.soilHumidity);
         Serial.println(" %");
+        Serial.printf("Posting data of board %d to server...\n", boardNum);
     }
 
+    WiFi.setSleep(false);
+    if(WiFi.status() != WL_CONNECTED){
+        WiFi.reconnect();
+        unsigned long t = millis();
+        while(WiFi.status() != WL_CONNECTED && millis() - t < 4000) delay(100);
+        if(WiFi.status() != WL_CONNECTED) return false;
+    }
+
+    String base = String("https://webhook.site/") + webhookUUID;
+
+    String airHumidURL  = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airHumiditySensorId    + "/data";
+    String airTempURL   = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airTemperatureSensorId + "/data";
+    String soilHumidURL = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].soilMoistureSensorId   + "/data";
+
+    WiFiClientSecure client;
+    client.setInsecure();
+
     HTTPClient http;
-    String serverName = "https://webhook.site/4e6188ac-a49f-4fec-a635-b17e4a474a5a";
-    String serverPath = serverName + "?temperature=24.37";
-    
-    // Your Domain name with URL path or IP address with path
-    http.begin(serverPath.c_str());
-    
-    // If you need Node-RED/server authentication, insert user and password below
-    //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
-    
-    // Send HTTP GET request
-    int httpResponseCode = http.GET();
+    http.setReuse(false);
+    http.setTimeout(5000);
+
+    auto postOne = [&](const String& fullUrl, const String& payload){
+        IPAddress ip;
+        // try DNS up to 2 times
+        for(int i=0;i<2;i++){
+            if(WiFi.hostByName("webhook.site", ip)) break;
+            delay(200);
+            if(i==1) { if(serial_output) Serial.println("DNS still failing; skip this POST"); return false; }
+        }
+        if(!http.begin(client, fullUrl)) return false;
+        http.addHeader("Content-Type", "application/json");
+        int code = http.POST(payload);
+        if(serial_output) Serial.println(code);
+        http.end();
+        delay(600); // give TLS/socket time between posts
+        return code > 0;
+    };
+
+    postOne(airHumidURL,  "{\"value\":\""+String(data.airHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+    postOne(airTempURL,   "{\"value\":\""+String(data.airTemperature)+"\",\"unit\":\"C\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+    postOne(soilHumidURL, "{\"value\":\""+String(data.soilHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+
     return true;
 }

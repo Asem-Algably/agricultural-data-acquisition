@@ -9,6 +9,6 @@
 #define serial_output   (1U) // set to (1u) to enable serial output for debugging purposes
 
 // configuration for the board
-#define boardID    1
+#define boardID    1U
 
 #endif // REEF_PLUS_FIRMWARE_CONFIG_H

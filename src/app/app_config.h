@@ -6,7 +6,7 @@ extern const board_t board_systemBoards[];
 #define APP_CONFIG_H
 
 // Configuration settings for Reef Plus firmware
-#define boardsChainLength 1
+#define boardsChainLength 3
 #define systemDutyCycle 3000 // in milliseconds
 
 #endif // APP_CONFIG_H
