@@ -25,6 +25,7 @@
 
 // app includes
 #include "app/app_init.h"
+#include "app/app_config.h"
 
 // MCAL includes
 #include "MCAL/esp_now/esp_now_init.h"

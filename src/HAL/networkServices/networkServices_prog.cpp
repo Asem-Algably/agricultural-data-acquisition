@@ -5,14 +5,10 @@
 #include "includes.h"
 #include "esp_err.h"
 
-extern const board_t board_systemBoards[];
-
-int networkServices_init(int wifiChannel){
+int networkServices_init(){
     // Initialization code for network services module
     if(communication_mode == espNow_mode){
-        Serial.println("DEBUG: Before esp_now_start");
-        esp_now_start(wifiChannel);
-        Serial.println("DEBUG: After esp_now_start");
+        (esp_now_start() == true)? Serial.println("network services initialized successfully") : Serial.println("network services initialization failed");
     }
     return 0;
 }
@@ -20,12 +16,6 @@ int networkServices_init(int wifiChannel){
 int networkServices_upstreamPacket(packet_t packet){
     if(communication_mode == espNow_mode){
         esp_err_t result = esp_now_send(upstreamDevice_MAC_h, (uint8_t*)&packet, sizeof(packet));
-
-        Serial.print("esp_now_send(upstream) result=");
-        Serial.print((int)result);
-        Serial.print(" (");
-        Serial.print(esp_err_to_name(result));
-        Serial.println(")");
 
         if(serial_output == 1U){
             Serial.print("esp_now_send(upstream) result=");

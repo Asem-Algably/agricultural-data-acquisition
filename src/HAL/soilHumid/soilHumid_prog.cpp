@@ -3,7 +3,6 @@
 #include "soilHumid_priv.h"
 #include "includes.h"
 
-extern const board_t board_systemBoards[];
 
 void soilHumid_init(void){
     // Initialization code for soil humidity module

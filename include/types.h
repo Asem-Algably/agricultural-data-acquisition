@@ -40,4 +40,13 @@ typedef struct {
 #define downPacketType 0x01
 #define upPacketType   0x02
 
+typedef struct {
+    u8 boardNum;
+    sensorsData_t sensorsData;
+    u8 status;
+} boardData_t;
+
+#define availableStatus 0x01
+#define unavailableStatus 0x02
+
 #endif // TYPES_H

@@ -8,15 +8,12 @@
 const char* ssid = ssid_priv;
 const char* password = password_priv;
 
-extern const board_t board_systemBoards[];
 
-const char* webhookUUID = "2f83affd-63b2-44d3-b5a2-0d462261fab5"; // e.g. "7902f3c3-d7fe-4192-b32d-ba72657f990e"
-
-int postServices_init(){
+void postServices_init(){
 
     WiFi.begin(ssid, password);
-    (serial_output == 1U) ? Serial.println("Connecting") : 1;
-    int wifi_channel;
+    (serial_output == 1U) ? Serial.printf("Connecting to wifi %s", ssid) : 1;
+    int wifi_channel = 11;
 
     while(WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -34,7 +31,8 @@ int postServices_init(){
         
         Serial.println("Post Services Initialized");
     }
-    return wifi_channel;
+    delay(500);
+    return;
 }
 
 bool postServices_postData(sensorsData_t data, u8 boardNum){
@@ -59,7 +57,7 @@ bool postServices_postData(sensorsData_t data, u8 boardNum){
         if(WiFi.status() != WL_CONNECTED) return false;
     }
 
-    String base = String("https://webhook.site/") + webhookUUID;
+    String base = String("https://webhook.site/");
 
     String airHumidURL  = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airHumiditySensorId    + "/data";
     String airTempURL   = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airTemperatureSensorId + "/data";

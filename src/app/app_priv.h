@@ -5,5 +5,7 @@
 
 // Private function prototypes and definitions for app module    
 sensorsData_t app_collectSensorData(void);
+void clearSysArr();
+void app_printBoardsData();
 
 #endif // APP_PRIV_H

@@ -2,6 +2,7 @@
 #include "app_priv.h"
 #include "app_init.h"
 #include "includes.h"
+#include "types.h"
 
 const board_t board_systemBoards[] = {
     {

@@ -5,7 +5,6 @@
 #include "./dht11_priv.h"
 #include <esp_timer.h>
 
-extern const board_t board_systemBoards[];
 DHT_Unified dht(DHTPIN, DHTTYPE);
 uint32_t delayMS;
 bool dht11_available = false;
