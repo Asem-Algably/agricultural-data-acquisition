@@ -13,7 +13,7 @@ void postServices_init(){
 
     WiFi.begin(ssid, password);
     (serial_output == 1U) ? Serial.printf("Connecting to wifi %s", ssid) : 1;
-    int wifi_channel = 11;
+    int wifi_channel;
 
     while(WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -57,39 +57,41 @@ bool postServices_postData(sensorsData_t data, u8 boardNum){
         if(WiFi.status() != WL_CONNECTED) return false;
     }
 
-    String base = String("https://webhook.site/");
+    String base = String("https://webhook.site/21e17a97-1064-4502-a041-17746a889a10");
 
     String airHumidURL  = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airHumiditySensorId    + "/data";
     String airTempURL   = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].airTemperatureSensorId + "/data";
     String soilHumidURL = base + "/api/v1/sensors/" + board_systemBoards[boardNum-1].soilMoistureSensorId   + "/data";
 
-    WiFiClientSecure client;
-    client.setInsecure();
-
-    HTTPClient http;
-    http.setReuse(false);
-    http.setTimeout(5000);
-
-    auto postOne = [&](const String& fullUrl, const String& payload){
-        IPAddress ip;
-        // try DNS up to 2 times
-        for(int i=0;i<2;i++){
-            if(WiFi.hostByName("webhook.site", ip)) break;
-            delay(200);
-            if(i==1) { if(serial_output) Serial.println("DNS still failing; skip this POST"); return false; }
-        }
-        if(!http.begin(client, fullUrl)) return false;
-        http.addHeader("Content-Type", "application/json");
-        int code = http.POST(payload);
-        if(serial_output) Serial.println(code);
-        http.end();
-        delay(600); // give TLS/socket time between posts
-        return code > 0;
-    };
-
-    postOne(airHumidURL,  "{\"value\":\""+String(data.airHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
-    postOne(airTempURL,   "{\"value\":\""+String(data.airTemperature)+"\",\"unit\":\"C\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
-    postOne(soilHumidURL, "{\"value\":\""+String(data.soilHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+    httppost(airHumidURL,  "{\"value\":\""+String(data.airHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+    httppost(airTempURL,   "{\"value\":\""+String(data.airTemperature)+"\",\"unit\":\"C\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
+    httppost(soilHumidURL, "{\"value\":\""+String(data.soilHumidity)+"\",\"unit\":\"%\",\"recordedAt\":\"2022-01-01T00:00:00Z\"}");
 
     return true;
+}
+
+void postServices_deinit(){
+    WiFi.disconnect(true);
+    WiFi.mode(WIFI_OFF);
+    if(serial_output == 1U){
+        Serial.println("Post Services Deinitialized");
+    }
+}
+
+void httppost(String url, String jsonpayload){
+    
+    HTTPClient http;
+    http.begin(url.c_str()); // endpoint to post all data together
+    
+    http.addHeader("Content-Type", "application/json");
+    int httpResponseCode = http.POST(jsonpayload);
+    if(serial_output == 1U){
+        Serial.print("POST to ");
+        Serial.print(url);
+        Serial.print(" with payload: ");
+        Serial.print(jsonpayload);
+        Serial.print(" - Response code: ");
+        Serial.println(httpResponseCode);
+    }
+    http.end(); 
 }

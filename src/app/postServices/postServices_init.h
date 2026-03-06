@@ -5,6 +5,7 @@
 #define POSTSERVICES_INIT_H
 
 void postServices_init();
+void postServices_deinit();
 
 bool postServices_postData(sensorsData_t data, u8 boardNum);
 

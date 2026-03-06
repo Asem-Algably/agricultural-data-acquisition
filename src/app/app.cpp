@@ -7,7 +7,9 @@
 boardData_t boardsData[boardsChainLength];  // defined after the types are known
 
 void app_init(void){
-    // if(boardID == 1){postServices_init();}
+    if (boardID != 1U){
+        networkServices_init();
+    }
     soilHumid_init();
     dht11_init();
     Serial.println("app_init finished");
@@ -59,13 +61,24 @@ void app_masterTask(void){
     app_printBoardsData();
     networkServices_deinit();
     delay(500);
+    
+    // posting system data to the cloud
+    postServices_init();
+    for (int i = 1; i <= boardsChainLength; i++){
+        if(boardsData[i-1].status == availableStatus){
+            postServices_postData(boardsData[i-1].sensorsData, i);
+            if(serial_output == 1U){
+                Serial.printf("Master board posted data of board %d to the server\n", i);
+            }
+        } else {
+            if(serial_output == 1U){
+                Serial.printf("Master board skipped posting data of board %d to the server due to unavailability\n", i);
+            }
+        }
+    }
 
-    // 2) Post master board's own data AFTER ESP-NOW exchange
-    // postServices_postData(data, boardID);
-    // if(serial_output == 1U){
-    //     Serial.println("Master board posted its own data");
-    // }
-
+    postServices_deinit();
+    
     delay(systemDutyCycle);
 }
 
