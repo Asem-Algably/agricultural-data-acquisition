@@ -80,7 +80,26 @@ int esp_now_initPeers(esp_now_peer_info_t* upstreamPeer, esp_now_peer_info_t* do
     return 0;
 }
 
+bool esp_now_kill(){
+    // Deinitialize ESP-NOW
+    esp_err_t result = esp_now_deinit();
 
+    if (serial_output == 1U) {
+        if (result == ESP_OK) {
+            Serial.println("ESP-NOW deinitialized successfully");
+        } else {
+            Serial.print("ESP-NOW deinit failed: ");
+            Serial.println(result);
+            return false;
+        }
+    }
+
+    // Optional: reset WiFi stack to clean state
+    WiFi.disconnect(true, true);
+    WiFi.mode(WIFI_OFF);
+    delay(100); // Short delay to ensure deinitialization completes
+    return true;
+}
 
 void esp_now_OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
     if(serial_output == 1U){

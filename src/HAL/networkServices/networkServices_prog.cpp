@@ -13,6 +13,17 @@ int networkServices_init(){
     return 0;
 }
 
+void networkServices_deinit(){
+    // Deinitialization code for network services module
+    if(communication_mode == espNow_mode){
+        if(esp_now_kill() == true){
+            Serial.println("network services deinitialized successfully");
+        } else {
+            Serial.println("network services deinitialization failed");
+        }
+    }
+}
+
 int networkServices_upstreamPacket(packet_t packet){
     if(communication_mode == espNow_mode){
         esp_err_t result = esp_now_send(upstreamDevice_MAC_h, (uint8_t*)&packet, sizeof(packet));

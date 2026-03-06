@@ -7,7 +7,6 @@
 boardData_t boardsData[boardsChainLength];  // defined after the types are known
 
 void app_init(void){
-    networkServices_init();
     // if(boardID == 1){postServices_init();}
     soilHumid_init();
     dht11_init();
@@ -17,11 +16,11 @@ void app_init(void){
 
 void app_masterTask(void){
     clearSysArr(); // reset availability each cycle
-
+    
     Serial.println("data collection cycle started");
     Serial.println("collecting master board data");
     sensorsData_t data = app_collectSensorData();
-    // yield();
+    
     boardsData[0].sensorsData = data;
     boardsData[0].status = availableStatus;
     boardsData[0].boardNum = boardID;
@@ -29,7 +28,9 @@ void app_masterTask(void){
         Serial.println("Master board data had been submitted to boardsData array");;
     }
     Serial.println("--------------------------------------");
+
     // 1) Request data from other boards FIRST
+    networkServices_init();
     for(int i = 2; i <= boardsChainLength; i++){
         Serial.printf("handling board %d data \n\n", i);
         if(serial_output == 1U){
@@ -56,6 +57,8 @@ void app_masterTask(void){
 
     // print system array
     app_printBoardsData();
+    networkServices_deinit();
+    delay(500);
 
     // 2) Post master board's own data AFTER ESP-NOW exchange
     // postServices_postData(data, boardID);
