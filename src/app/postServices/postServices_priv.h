@@ -2,8 +2,8 @@
 #include "includes.h" 
 #define POSTSERVICES_PRIV_H
 
-#define ssid_priv "the Capital"
-#define password_priv "MEOAM@gmail123.com"
+#define ssid_priv "put your SSID here"
+#define password_priv "put your password here"
 
 void httppost(String url, String jsonpayload);
 
