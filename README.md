@@ -22,5 +22,5 @@ Video demo: https://drive.google.com/file/d/1uMhDBaZPWNIMETvrxpRy4zT_3VIhQVG0/vi
 
 - Build a portal to access and manage each node’s settings
 - Use long-range mode in the ESP-NOW communication protocol
-- Add more flexibility to the firmware interface
+- Add more support and flexibility to the firmware sensor interface to cover more sensor (like NPK sensor)
 - Move from a line-based topology to a mesh-based network topology
